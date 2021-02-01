@@ -3,31 +3,37 @@ file:
 spring:
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 100MB
+      max-file-size: 100MB
+      max-request-size: 1000MB
   thymeleaf:
     prefix: classpath:/templates/pay/
     suffix: .html
   mvc:
-      static-path-pattern=/**
+    static-path-pattern=/**
   resources:
-            static-locations=classpath:/static/
+    static-locations=classpath:/static/
   freemarker:
     request-context-attribute: application
     settings:
       number_format: '0.##'
     cache: false
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource #  使用druid数据源
     filters: config  # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrpt=true;
-    url: jdbc:mysql://47.104.226.10:3306/mall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    url: jdbc:mysql://47.104.226.10:3306/mall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8&allowMultiQueries=true
+    #    url: jdbc:mysql://localhost:3306/xiaomier?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8&allowMultiQueries=true
+    #    &allowMultiQueries=true    开启多条sql的执行
     username: root
     password: McNZWBO6tAyj89DLb2RcicBIB25vZVyDP2nF+5iRp3oFBNRD/T/VsOAyeZ/78EtGazQlHJ4U48Ur+9h76n8wdg==
-    #java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools you_password
+    #    password: LlXyw/oDTQUR0iQtB0Hno92z2B9ehoBEzQb/sge2LDDQqfLr7wPOy+lT6WCEO9gEHzoc24Bmbu4rTUgcViswRw==
+    #    InqWbeheYt825bQYkJvj6MiH3XPeDDIKJ/L8olD12Z1zYVmrYa5IWd3nUBwtFtzR6h/8+d1SlzrYPg1J6tsQbA==
+    #java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools root
     publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALByXzzx1tOnmc+uIzQoxVJBLdwaN+4tsSPqKHdlGVhh0sKBHdNlqYMWpP2u10qFNrCHypts4lhZDmgdncXtRaUCAwEAAQ==
+    #    publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJIlPu5GQNjjpCIX0fWDJZPHwrOrZVRsjV6aB2GfZhJo6pxnEGt644xEiaudh6brlZD1qm0gLlK9GYt8Rdrz+UsCAwEAAQ==
+    #    MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJNBJ2JWzDtKu3Ry0dBET2pcpaH8N3F75v/RtCS/Coowr2IBGEwVWSTZRxb2f9STmthd9U6uYgib2Wf4Y5PZ2+8CAwEAAQ==
     initialSize: 1                                # 初始化连接:连接池启动时创建的初始化连接数量
     minIdle: 1                                    # 最小空闲连接:连接池中容许保持空闲状态的最小连接数量,负数表示没有现在
     maxActive: 1                                 # 最大空闲连接:连接池中容许保持空闲状态的最大连接数量,超过的空闲连接将被释放,如果设置为负数表示不限制
@@ -45,15 +51,16 @@ spring:
     logAbandoned: true                            # 是否记录日志
   redis:
     database: 0               #  数据库索引
-    hostName: 94.191.102.215    #120.92.21.162
     port: 6379
+    password: Admin123
     pool:                     # 连接池配置
       max-wait-millis: 2000
       max-total: 10
-    jedis:
-      pool:
-        min-idle: 1
-        max-idle: 10
+    host-name: 47.108.128.208
+  #    jedis:
+  #      pool:
+  #        min-idle: 1
+  #        max-idle: 10
   https:     #文件上传配置大小
     multipart:
       max-file-size: 50MB
@@ -69,8 +76,62 @@ mybatis:
 logging:
   level:
     root: INFO
-  file: logs/dev.log
+  file:
+    name: logs/dev.log
 #退出登录跳转地址（如何地址是https的需要配置完整路径）
 logout_success_url: /login
 server:
   port: 8084
+
+aliyun:
+  endpoint: "oss-cn-beijing.aliyuncs.com"
+  accessKeyId: "LTAI4Fzu9S9CaHXAkKfPjLsZ"
+  accessKeySecret: "Uc8QugZj44E9qYgpTp3nIRAQ5W5PKR"
+  buckName: "ytxmy"
+  urlPrefix: "https://ytxmy.oss-cn-beijing.aliyuncs.com/"
+
+
+mybatis-plus:
+  # Mapper.xml 文件位置 Maven 多模块项目的扫描路径需以 classpath*: 开头
+  mapper-locations: classpath*:com/bxwl/admin/**/dao/mapper/*.xml
+
+  #  classpath*:com/**/mapper/*.xml
+  #  #MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名 实体扫描，多个package用逗号或者分号分隔
+  #    typeAliasesPackage: com.bxwl.admin.mmc.model
+  #  #通过父类（或实现接口）的方式来限定扫描实体
+  #  typeAliasesSuperType: com.vanhr.user.dao.entity.baseEntity
+  #  #枚举类 扫描路径 如果配置了该属性，会将路径下的枚举类进行注入，让实体类字段能够简单快捷的使用枚举属性
+  #  typeEnumsPackage: com.vanhr.user.dao.enums
+  #  #启动时是否检查 MyBatis XML 文件的存在，默认不检查 仅限spring boot 使用
+  #  checkConfigLocation : true
+  #  #通过该属性可指定 MyBatis 的执行器，MyBatis 的执行器总共有三种：
+  #  # ExecutorType.SIMPLE：该执行器类型不做特殊的事情，为每个语句的执行创建一个新的预处理语句（PreparedStatement）
+  #  # ExecutorType.REUSE：该执行器类型会复用预处理语句（PreparedStatement）
+  #  # ExecutorType.BATCH：该执行器类型会批量执行所有的更新语句
+  #  executorType: SIMPLE
+  #  # 指定外部化 MyBatis Properties 配置，通过该配置可以抽离配置，实现不同环境的配置部署
+  #  configurationProperties:
+  configuration: # MyBatis 原生支持的配置
+    # 是否开启自动驼峰命名规则（camel case）映射
+    mapUnderscoreToCamelCase: true
+    # 枚举处理类,如果配置了该属性,枚举将统一使用指定处理器进行处理
+    #   org.apache.ibatis.type.EnumTypeHandler : 存储枚举的名称
+    #   org.apache.ibatis.type.EnumOrdinalTypeHandler : 存储枚举的索引
+    #   com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler : 枚举类需要实现IEnum接口或字段标记@EnumValue注解.(3.1.2以下版本为EnumTypeHandler)
+    #    defaultEnumTypeHandler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+    # 配置JdbcTypeForNull, oracle数据库必须配置
+    jdbc-type-for-null: null
+  global-config: # 全局策略配置
+    # 是否控制台 print mybatis-plus 的 LOGO
+    banner: false
+    db-config:
+      # id类型
+      id-type: auto
+      # 表名是否使用下划线命名，默认数据库表使用下划线命名
+      table-underline: true
+      #是否开启大写命名，默认不开启
+#      capital-mode: false
+#      #逻辑已删除值,(逻辑删除下有效) 需要注入逻辑策略LogicSqlInjector 以@Bean方式注入
+#      logic-not-delete-value: 0
+#      #逻辑未删除值,(逻辑删除下有效)
+#      logic-delete-value: 1

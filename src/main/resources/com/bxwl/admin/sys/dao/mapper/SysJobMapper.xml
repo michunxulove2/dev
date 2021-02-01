@@ -7,7 +7,7 @@
 		insert into t_sys_job(id,org_id,job_name,create_time,has_default)
 		values(#{jobId},#{orgId},#{jobName},now(),#{hasDefault})
 	</select>
-	
+
 	<!-- 获取系统岗位总数 -->
 	<select id="getJobsCount" parameterType="com.bxwl.admin.sys.model.PageBean" resultType="int">
 		select count(0) from t_sys_job where 1=1
@@ -27,41 +27,41 @@
 		order by create_time desc
 		limit #{startSize},#{pageSize}
 	</select>
-	
+
 	<!-- 批量新增岗位对应资源 -->
 	<insert id="addJob2Resources" parameterType="java.util.List">
-		insert into t_sys_job_2_resource(job_id,res_id) 
+		insert into t_sys_job_2_resource(job_id,res_id)
 		values
 		<foreach collection="list" item="it" separator=",">
 			(#{it.jobId},#{it.resId})
 		</foreach>
 	</insert>
-	
+
 	<!-- 根据id删除岗位 -->
 	<delete id="delJobById" parameterType="String">
 		delete from t_sys_job where id = #{jobId}
 	</delete>
-	
+
 	<!-- 根据jobId删除岗位对应资源关系 -->
 	<delete id="delJob2ResByJobId" parameterType="String">
 		delete from t_sys_job_2_resource where job_id = #{jobId}
 	</delete>
-	
+
 	<!-- 根据jobId获取岗位对应资源关系 -->
 	<select id="getResByJobId" parameterType="String" resultType="String">
 		select res_id from t_sys_job_2_resource where job_id = #{jobId}
 	</select>
-	
+
 	<!-- 根据jobId获取岗位信息 -->
 	<select id="getJobById" parameterType="String" resultType="com.bxwl.admin.sys.model.SysJob">
 		select id jobId,org_id orgId,job_name jobName,create_time createTime,has_default hasDefault from t_sys_job where id = #{jobId}
 	</select>
-	
+
 	<!-- 更新岗位信息 -->
 	<update id="updateJobById" parameterType="com.bxwl.admin.sys.model.SysJob">
 		update t_sys_job set job_name = #{jobName} where id = #{jobId}
 	</update>
-	
+
 	<!-- 根据机构id查询岗位信息 -->
 	<select id="getJobsByOrgId" parameterType="String" resultType="com.bxwl.admin.sys.model.SysJob">
 		select id jobId,org_id orgId,job_name jobName,create_time createTime,has_default hasDefault from t_sys_job
