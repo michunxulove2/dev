@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bxwl.admin.sys.dao.SysDictDataDao">
+    <!-- 获取字典类型总数 -->
+    <select id="getCount" parameterType="com.bxwl.admin.sys.model.PageBean" resultType="int">
+		select count(0) from t_sys_dict_type where 1=1
+	</select>
+
+    <!-- 分页查询字典信息 -->
+    <select id="findPage" resultType="com.bxwl.admin.sys.model.SysDictData"
+            parameterType="com.bxwl.admin.sys.model.PageBean">
+        select * from t_sys_dict_data where 1=1
+        <!-- 查询条件-->
+        <if test="where.dictLabel != null and where.dictLabel != ''">
+            and dict_label like CONCAT('%',#{where.dictLabel},'%')
+        </if>
+        <if test="where.dictValue != null and where.dictValue != ''">
+            and dict_value = #{where.dictValue}
+        </if>
+        and dict_type = #{where.dictType}
+        order by dict_value
+        limit #{startSize},#{pageSize}
+    </select>
+
+    <!-- 根据字典类型查询 -->
+    <select id="getByDictValue" resultType="com.bxwl.admin.sys.model.SysDictData" parameterType="String">
+        select * from t_sys_dict_data where dict_value = #{dictValue} AND dict_type = #{dictType} limit 1
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="getById" resultType="com.bxwl.admin.sys.model.SysDictData" parameterType="String">
+        select * from t_sys_dict_data where id = #{id} limit 1
+    </select>
+
+	<!-- 根据字典类型查询该类型下的所有字典数据 -->
+	<select id="findListByType" resultType="com.bxwl.admin.sys.model.SysDictData" parameterType="String">
+        select * from t_sys_dict_data where dict_type = #{dictType}
+    </select>
+
+
+    <!-- 新增系统字典 -->
+    <insert id="save" parameterType="com.bxwl.admin.sys.model.SysDictData">
+		insert into t_sys_dict_data(
+		id,
+		dict_label,
+		dict_value,
+		dict_type,
+		description,
+		status,
+		create_date,
+		update_date,
+		remarks)
+		values(
+		#{sysDictData.id},
+		#{sysDictData.dictLabel},
+		#{sysDictData.dictValue},
+		#{sysDictData.dictType},
+		#{sysDictData.description},
+		#{sysDictData.status},
+		#{sysDictData.createDate},
+		#{sysDictData.updateDate},
+		#{sysDictData.remarks})
+	</insert>
+	<!-- 更新字典类型信息 -->
+	<update id="update" parameterType="com.bxwl.admin.sys.model.SysDictData">
+		update t_sys_dict_data set
+		dict_label = #{sysDictData.dictLabel},
+		dict_value = #{sysDictData.dictValue},
+		description = #{sysDictData.description},
+		update_date = #{sysDictData.updateDate},
+		remarks = #{sysDictData.remarks}
+		where id = #{sysDictData.id}
+	</update>
+
+    <!-- 根据id删除字典 -->
+    <delete id="delete" parameterType="String">
+		delete from t_sys_dict_data where id = #{id}
+	</delete>
+
+	<!-- 根据字典类型删除字典数据 -->
+	<delete id="deleteByDictType" parameterType="String">
+		delete from t_sys_dict_data where dict_type = #{dictType}
+	</delete>
+
+</mapper>

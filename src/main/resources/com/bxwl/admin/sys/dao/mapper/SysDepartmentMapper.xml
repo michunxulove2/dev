@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bxwl.admin.sys.dao.SysDepartmentDao" >
+	<!-- 获取部门总数 -->
+	<select id="getDepartmentsCount" parameterType="com.bxwl.admin.sys.model.PageBean" resultType="int">
+		select count(0) from t_sys_department where 1=1
+	</select>
+
+	<!-- 分页查询部门信息 -->
+	<select id="getDepartmentsByPage" resultType="com.bxwl.admin.sys.model.SysDepartment" parameterType="com.bxwl.admin.sys.model.PageBean">
+		select id,name,create_time AS createTime,has_enabled AS hasEnabled from t_sys_department where 1=1
+		<!-- 查询条件-->
+		<if test="where.name != null and where.name != ''">
+			and name like CONCAT('%',#{where.name},'%')
+		</if>
+		order by create_time desc
+		limit #{startSize},#{pageSize}
+	</select>
+	<!-- 查询部门信息list集合 -->
+	<select id="getDepartments" resultType="com.bxwl.admin.sys.model.SysDepartment">
+		select id,name,create_time AS createTime,has_enabled AS hasEnabled from t_sys_department where 1=1 order by create_time desc
+	</select>
+	<!-- 新增部门 -->
+	<insert id="addDepartment" parameterType="com.bxwl.admin.sys.model.SysDepartment">
+		insert into t_sys_department(id,name,create_time,has_enabled)
+		values(#{sysDepartment.id},#{sysDepartment.name},now(),#{sysDepartment.hasEnabled})
+	</insert>
+	<!-- 根据部门id删除部门 -->
+	<delete id="delSysDepartmentById" parameterType="String">
+		delete from t_sys_department where id = #{departmentId}
+	</delete>
+	<!-- 根据部门id查询对应的部门集合 -->
+	<select id="getSysDepartmentById" parameterType="String" resultType="com.bxwl.admin.sys.model.SysDepartment">
+		select id,name,create_time AS createTime,has_enabled AS hasEnabled from t_sys_department where id = #{departmentId}
+	</select>
+	<!-- 更新部门信息 -->
+	<update id="updateSysDepartment" parameterType="com.bxwl.admin.sys.model.SysDepartment">
+		update t_sys_department set name = #{sysDepartment.name},has_enabled = #{sysDepartment.hasEnabled} where id = #{sysDepartment.id}
+	</update>
+</mapper>

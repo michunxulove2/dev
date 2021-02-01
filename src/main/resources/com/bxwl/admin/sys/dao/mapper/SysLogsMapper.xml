@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bxwl.admin.sys.dao.SysLogsDao" >
+	<!-- 插入操作记录 -->
+	<insert id="save" parameterType="com.bxwl.admin.sys.model.SysLogs">
+		insert into t_sys_logs(id,user_name,operation,method,ip,create_date)
+		values(#{sysLogs.id},#{sysLogs.userName},#{sysLogs.operation},#{sysLogs.method},#{sysLogs.ip},now())
+	</insert>
+
+	<!-- 获取记录总数 -->
+	<select id="getLogsCount" parameterType="com.bxwl.admin.sys.model.PageBean" resultType="int">
+		select count(0) from t_sys_logs where 1=1
+	</select>
+
+	<!-- 分页查询记录信息 -->
+	<select id="getLogsByPage" resultType="com.bxwl.admin.sys.model.SysLogs" parameterType="com.bxwl.admin.sys.model.PageBean">
+		select id,user_name AS userName,operation,method,ip,create_date AS createDate from t_sys_logs where 1=1
+		<!-- 查询条件-->
+		<if test="where.userName != null and where.userName != ''">
+			and user_name like CONCAT('%',#{where.userName},'%')
+		</if>
+		order by create_date desc
+		limit #{startSize},#{pageSize}
+	</select>
+
+</mapper>

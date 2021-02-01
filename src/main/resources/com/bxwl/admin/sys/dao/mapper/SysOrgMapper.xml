@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bxwl.admin.sys.dao.SysOrgDao" >
+
+	<!-- 获取系统机构总数 -->
+	<select id="getOrgsCount" parameterType="com.bxwl.admin.sys.model.PageBean" resultType="int">
+		select count(0) from t_sys_org where has_deleted = 'N'
+		<!-- 查询条件-->
+		<if test="where != null">
+			and p_id = #{where.orgId}
+		</if>
+	</select>
+
+	<!-- 分页查询机构 -->
+	<select id="getOrgsByPage" resultType="com.bxwl.admin.sys.model.SysOrg" parameterType="com.bxwl.admin.sys.model.PageBean">
+		select id orgId,p_id pId,create_time createTime
+		from t_sys_org
+		where has_deleted = 'N'
+		<!-- 查询条件-->
+		<if test="where != null">
+			and p_id = #{where.orgId}
+		</if>
+		order by create_time desc
+		limit #{startSize},#{pageSize}
+	</select>
+	
+	<!-- 新增系统机构 -->
+	<insert id="addSysOrg" parameterType="com.bxwl.admin.sys.model.SysOrg">
+		insert into t_sys_org(id,p_id,create_time,has_deleted,has_enabled)
+					   values(#{orgId},#{pId},now(),'N',#{hasEnabled})
+	</insert>
+	
+	<!-- 根据机构id删除系统机构 -->
+	<delete id="delSysOrg" parameterType="String">
+		update t_sys_org set has_deleted = 'Y' where id = #{orgId}
+	</delete>
+
+	<!-- 修改系统机构信息 -->
+	<update id="updateSysOrg" parameterType="com.bxwl.admin.sys.model.SysOrg">
+		update t_sys_org set has_enabled=#{hasEnabled}
+		where id = #{orgId}
+	</update>
+	
+	<!-- 根据系统机构id查询机构信息 -->
+	<select id="getSysOrgById" parameterType="String" resultType="com.bxwl.admin.sys.model.SysOrg">
+		select org.id orgId <!--,users.login_name loginName,job.id jobId-->,
+			   org.p_id pId,org.create_time createTime,org.has_enabled hasEnabled
+		from t_sys_org org <!--join t_sys_user users on (org.id = users.org_id)
+			 join t_sys_user_2_job user2job on (users.id = user2job.sys_user_id)
+			 join t_sys_job job on (user2job.job_id = job.id)-->
+		where org.has_deleted = 'N' and org.id = #{orgId}
+		<!-- and users.has_default = 'Y' and job.has_default = 'Y'-->
+	</select>
+
+</mapper>

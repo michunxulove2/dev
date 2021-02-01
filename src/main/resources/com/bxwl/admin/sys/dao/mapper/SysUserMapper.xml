@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bxwl.admin.sys.dao.SysUserDao">
+
+    <!-- 系统用户登录 -->
+    <select id="doLogin" parameterType="String" resultType="com.bxwl.admin.sys.model.SysUser">
+		select u.id userId,u.org_id orgId,u.login_name loginName,u.login_pwd loginPwd,u.nickname,u.imei,u.code,
+				u.sex,u.email,u.create_time createTime,u.has_enabled hasEnabled,u.has_default hasDefault,
+		       o.has_enabled orgHasEnabled
+		from t_sys_user u left join t_sys_org o
+		on u.org_id = o.id
+		where u.login_name = #{loginName} and u.has_deleted = 'N'
+	</select>
+
+    <!-- 根据机构id获取系统用户总数 -->
+    <select id="getSysUsersCount" parameterType="com.bxwl.admin.sys.model.PageBean" resultType="int">
+        select count(0) from t_sys_user u left join t_sys_user_2_job uj
+        on u.id = uj.sys_user_id
+        where u.has_deleted = 'N'
+        <!-- 查询条件-->
+        <if test="where != null">
+            and u.org_id = #{where.orgId}
+            <if test="where.name != null and where.name != '' ">
+                and u.nickname like CONCAT('%',#{where.name},'%')
+            </if>
+            <if test="where.tel != null and where.tel != '' ">
+                and u.contact_phone like CONCAT('%',#{where.tel},'%')
+            </if>
+            <if test="where.jobId != null and where.jobId != '-1' ">
+                and uj.job_id = #{where.jobId}
+            </if>
+        </if>
+    </select>
+
+    <!-- 分页查询系统用户 -->
+    <select id="getSysUsersByPage" resultType="com.bxwl.admin.sys.model.SysUser"
+            parameterType="com.bxwl.admin.sys.model.PageBean">
+        select ud.name AS departmentName,ud.id AS departId, u.id userId,u.org_id orgId,u.login_name
+        loginName,u.login_pwd loginPwd,u.nickname,
+        u.contact_phone contactPhone,u.imei,u.code,u.sex,u.email,u.create_time createTime,u.has_enabled hasEnabled,
+        u.has_default hasDefault,(select GROUP_CONCAT(j.job_name) from t_sys_user_2_job uj LEFT JOIN t_sys_job j on
+        uj.job_id = j.id
+        where uj.sys_user_id = u.id) jobNames
+        from t_sys_user u left join t_sys_user_2_job uj
+        on u.id = uj.sys_user_id left join t_sys_department ud
+        on u.depart_id = ud.id
+        where u.has_deleted = 'N'
+        <!-- 查询条件-->
+        <if test="where != null">
+            and u.org_id = #{where.orgId}
+            <if test="where.name != null and where.name != '' ">
+                and u.nickname like CONCAT('%',#{where.name},'%')
+            </if>
+            <if test="where.tel != null and where.tel != '' ">
+                and u.contact_phone like CONCAT('%',#{where.tel},'%')
+            </if>
+            <if test="where.jobId != null and where.jobId != '-1' ">
+                and uj.job_id = #{where.jobId}
+            </if>
+        </if>
+        order by u.create_time desc
+        limit #{startSize},#{pageSize}
+    </select>
+
+    <!--  根据userId查询系统用户信息 -->
+    <select id="getSysUserById" parameterType="String" resultType="com.bxwl.admin.sys.model.SysUser">
+		select ud.name AS departmentName,ud.id AS departId, u.id userId,u.org_id orgId,u.login_name loginName,u.login_pwd loginPwd,u.nickname,
+					u.contact_phone contactPhone,u.imei,u.code,u.sex,u.email,u.create_time createTime,u.has_enabled hasEnabled,
+					u.has_default hasDefault,o.org_name orgName
+		from t_sys_user u left join t_sys_org o on o.id = u.org_id left join t_sys_department ud
+		on u.depart_id = ud.id
+		where u.id = #{userId} and u.has_deleted = 'N'
+	</select>
+
+    <!-- 查询用户list集合 -->
+    <select id="getSysUsers" resultType="com.bxwl.admin.sys.model.SysUser">
+		select id userId,org_id orgId,login_name loginName,nickname,
+					contact_phone contactPhone,imei,sex,email,create_time createTime,has_enabled hasEnabled
+		from t_sys_user where 1=1 order by create_time desc
+	</select>
+
+
+    <!-- 新增系统用户 -->
+    <insert id="addSysUser" parameterType="com.bxwl.admin.sys.model.SysUser">
+		insert into t_sys_user(id,org_id,depart_id,login_name,login_pwd,nickname,contact_phone,imei,code,sex,email,create_time,has_deleted,has_enabled,has_default)
+						values(#{userId},#{orgId},#{departId},#{loginName},#{loginPwd},#{nickname},#{contactPhone},#{imei},#{code},#{sex},#{email},now(),'N',#{hasEnabled},#{hasDefault})
+	</insert>
+
+    <!-- 批量添加系统用户对应岗位 -->
+    <insert id="addSysUser2Jobs" parameterType="com.bxwl.admin.sys.model.SysUser2Job">
+        insert into t_sys_user_2_job(sys_user_id,job_id)
+        values
+        <foreach collection="list" item="it" separator=",">
+            (#{it.sysUserId},#{it.jobId})
+        </foreach>
+    </insert>
+
+    <!-- 修改系统用户 -->
+    <update id="updateSysUser" parameterType="com.bxwl.admin.sys.model.SysUser">
+		update t_sys_user 
+		set nickname = #{nickname},depart_id = #{departId},contact_phone = #{contactPhone},imei = #{imei},code = #{code},sex = #{sex},email = #{email},has_enabled = #{hasEnabled}
+		where id = #{userId}
+	</update>
+
+    <!-- 检查登录名是否存在 -->
+    <select id="checkLoginName" parameterType="String" resultType="int">
+		select count(0) from t_sys_user where login_name = #{loginName} and has_deleted = 'N'
+	</select>
+
+    <!-- 根据id删除系统用户 -->
+    <update id="delSysUserById" parameterType="String">
+		update t_sys_user set has_deleted = 'Y' where id = #{userId}
+	</update>
+
+    <!-- 根据系统用户id查询对应的岗位id集合 -->
+    <select id="getJobIdsByUserId" parameterType="String" resultType="String">
+		select job_id from t_sys_user_2_job where sys_user_id = #{userId}
+	</select>
+
+    <!-- 根据岗位id查询对应的用户集合 -->
+    <select id="getUserIdsByJobId" parameterType="String" resultType="String">
+		select sys_user_id from t_sys_user_2_job where job_id = #{jobId}
+	</select>
+
+    <!-- 根据系统用户id删除系统用户对应岗位信息 -->
+    <delete id="delSysUser2JobsByUserId" parameterType="String">
+		delete from t_sys_user_2_job where sys_user_id = #{userId}
+	</delete>
+
+    <!-- 修改系统用户密码 -->
+    <update id="updatePwd" parameterType="com.bxwl.admin.sys.model.SysUser">
+		update t_sys_user set login_pwd = #{loginPwd} where id = #{userId}
+	</update>
+
+    <!-- 修改系统用户密码 -->
+    <update id="updateUserPwd" parameterType="com.bxwl.admin.sys.model.SysUser">
+		update t_sys_user set login_pwd = #{loginPwd} where login_name = #{loginName}
+		and org_id = #{orgId}
+	</update>
+
+</mapper>

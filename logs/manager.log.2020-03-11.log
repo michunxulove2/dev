@@ -1,0 +1,58 @@
+2020-03-11 14:30:17.407 [main] INFO  com.bxwl.Application - Starting Application on XiqoQi-PC with PID 3232 (E:\Code\java-project\projects\Emergency_warning\projects\release\target\classes started by XiqoQi in E:\Code\java-project\projects\Emergency_warning\projects\release)
+2020-03-11 14:30:17.410 [main] INFO  com.bxwl.Application - The following profiles are active: dev
+2020-03-11 14:30:18.314 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-03-11 14:30:18.318 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-11 14:30:18.371 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32ms. Found 0 repository interfaces.
+2020-03-11 14:30:18.799 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7fe4809a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-11 14:30:19.207 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8083 (http)
+2020-03-11 14:30:19.223 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
+2020-03-11 14:30:19.232 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-03-11 14:30:19.232 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2020-03-11 14:30:19.435 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-03-11 14:30:19.435 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1969 ms
+2020-03-11 14:30:20.347 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-03-11 14:30:20.415 [main] WARN  c.b.a.sys.security.CustomFilterSecurityInterceptor - Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2020-03-11 14:30:21.130 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/plugins/**'], []
+2020-03-11 14:30:21.130 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/js/**'], []
+2020-03-11 14:30:21.130 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/img/**'], []
+2020-03-11 14:30:21.130 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/verifyCode'], []
+2020-03-11 14:30:21.130 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico'], []
+2020-03-11 14:30:21.164 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@627bcd7e, org.springframework.security.web.context.SecurityContextPersistenceFilter@48d44b46, org.springframework.security.web.header.HeaderWriterFilter@7440265c, org.springframework.security.web.authentication.logout.LogoutFilter@750e2d33, com.bxwl.admin.sys.security.LoginAuthenticationFilter@70543cae, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@359e27d2, org.springframework.security.web.session.ConcurrentSessionFilter@350567f1, com.bxwl.admin.sys.security.ExpiredSessionFilter@1a5b7394, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@794cb26b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d3a03fe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@26f75d9c, org.springframework.security.web.session.SessionManagementFilter@48277712, org.springframework.security.web.access.ExceptionTranslationFilter@22aefae0, com.bxwl.admin.sys.security.CustomFilterSecurityInterceptor@55c50f52, com.bxwl.admin.sys.filter.ViewInterceptor@7717b4a0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6de84336]
+2020-03-11 14:30:21.363 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-11 14:30:21.522 [main] WARN  o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/pay/ (please add some templates or check your Thymeleaf configuration)
+2020-03-11 14:30:21.858 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2020-03-11 14:30:21.938 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
+2020-03-11 14:30:22.000 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8083 (http) with context path ''
+2020-03-11 14:30:22.004 [main] INFO  com.bxwl.Application - Started Application in 5.042 seconds (JVM running for 8.256)
+2020-03-11 14:30:57.555 [Thread-13] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2020-03-11 14:30:57.562 [Thread-13] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-11 14:30:57.568 [Thread-13] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-03-11 14:31:03.991 [main] INFO  com.bxwl.Application - Starting Application on XiqoQi-PC with PID 7260 (E:\Code\java-project\projects\Emergency_warning\projects\release\target\classes started by XiqoQi in E:\Code\java-project\projects\Emergency_warning\projects\release)
+2020-03-11 14:31:03.994 [main] INFO  com.bxwl.Application - The following profiles are active: dev
+2020-03-11 14:31:04.983 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-03-11 14:31:04.985 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-11 14:31:05.026 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+2020-03-11 14:31:05.410 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7b41d4c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-11 14:31:05.761 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (http)
+2020-03-11 14:31:05.774 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8084"]
+2020-03-11 14:31:05.781 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-03-11 14:31:05.782 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2020-03-11 14:31:05.983 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-03-11 14:31:05.984 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1897 ms
+2020-03-11 14:31:06.763 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-03-11 14:31:06.838 [main] WARN  c.b.a.sys.security.CustomFilterSecurityInterceptor - Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2020-03-11 14:31:07.680 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/plugins/**'], []
+2020-03-11 14:31:07.680 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/js/**'], []
+2020-03-11 14:31:07.681 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/img/**'], []
+2020-03-11 14:31:07.681 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/verifyCode'], []
+2020-03-11 14:31:07.681 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico'], []
+2020-03-11 14:31:07.712 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7769d9b6, org.springframework.security.web.context.SecurityContextPersistenceFilter@194037f9, org.springframework.security.web.header.HeaderWriterFilter@246de37e, org.springframework.security.web.authentication.logout.LogoutFilter@51f34185, com.bxwl.admin.sys.security.LoginAuthenticationFilter@248d3a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1b8d20e6, org.springframework.security.web.session.ConcurrentSessionFilter@3c71cf3e, com.bxwl.admin.sys.security.ExpiredSessionFilter@636e4bf8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@17003497, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14dbfdb1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5af38a4a, org.springframework.security.web.session.SessionManagementFilter@7b79ff1c, org.springframework.security.web.access.ExceptionTranslationFilter@15cee630, com.bxwl.admin.sys.security.CustomFilterSecurityInterceptor@6c6c2a73, com.bxwl.admin.sys.filter.ViewInterceptor@7e1a9173, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3b9c9b8b]
+2020-03-11 14:31:07.927 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-11 14:31:08.052 [main] WARN  o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/pay/ (please add some templates or check your Thymeleaf configuration)
+2020-03-11 14:31:08.359 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2020-03-11 14:31:08.430 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8084"]
+2020-03-11 14:31:08.456 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (http) with context path ''
+2020-03-11 14:31:08.459 [main] INFO  com.bxwl.Application - Started Application in 4.992 seconds (JVM running for 6.248)
+2020-03-11 14:31:15.831 [http-nio-8084-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-11 14:31:15.831 [http-nio-8084-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-03-11 14:31:15.842 [http-nio-8084-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 11 ms
