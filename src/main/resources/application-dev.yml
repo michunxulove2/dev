@@ -23,11 +23,11 @@ spring:
     filters: config  # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrpt=true;
-    url: jdbc:mysql://localhost:3306/yjyj?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
     username: root
-    password: PJ3h+dzdr/DtksIrBoeoPNgg0I4j5bEdUVQJKHbv1qN0asIwWQW0PFyiwoaGxJfWdeTIpQCF4E0p5ZCb7PkORw==
+    password: McNZWBO6tAyj89DLb2RcicBIB25vZVyDP2nF+5iRp3oFBNRD/T/VsOAyeZ/78EtGazQlHJ4U48Ur+9h76n8wdg==
     #java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools you_password
-    publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANgBJPI4eJxbj9DreXjmJTXhUMAJsWb+uuPeUoZfiqnYGiXxePhScd1O+x0TCnKXCVJPAiFxSRo419ACWjOvpSUCAwEAAQ==
+    publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALByXzzx1tOnmc+uIzQoxVJBLdwaN+4tsSPqKHdlGVhh0sKBHdNlqYMWpP2u10qFNrCHypts4lhZDmgdncXtRaUCAwEAAQ==
     initialSize: 1                                # 初始化连接:连接池启动时创建的初始化连接数量
     minIdle: 1                                    # 最小空闲连接:连接池中容许保持空闲状态的最小连接数量,负数表示没有现在
     maxActive: 1                                 # 最大空闲连接:连接池中容许保持空闲状态的最大连接数量,超过的空闲连接将被释放,如果设置为负数表示不限制
